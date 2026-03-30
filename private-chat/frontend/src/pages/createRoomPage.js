@@ -1,4 +1,5 @@
 import { createRoom } from "../services/roomsService.js";
+import "../styles/createRoom.css";
 
 const participantOptions = [2, 3, 5, 10, 20];
 const expirationOptions = [
@@ -57,55 +58,72 @@ function getOrCreateCreatorId() {
 }
 
 export function renderCreateRoomPage(container) {
+  document.body.classList.remove("room-page-active");
   container.innerHTML = `
-    <main>
-      <h1>Private Chat</h1>
-      <p>Crie uma sala privada e compartilhe o link.</p>
+    <main class="create-page">
+      <section class="create-card">
+        <h1 class="create-title">Private Chat</h1>
+        <p class="create-subtitle">Crie uma sala privada e compartilhe o link.</p>
 
-      <form id="create-room-form">
-        <label for="maxParticipants">Limite de participantes</label>
-        <select id="maxParticipants" name="maxParticipants" required>
-          ${participantOptions.map((value) => `<option value="${value}">${value}</option>`).join("")}
-        </select>
+        <form id="create-room-form" class="create-form">
+          <ol class="create-options-list">
+            <li class="option-item">
+              <label for="roomName">Nome da sala</label>
+              <input
+                id="roomName"
+                name="roomName"
+                type="text"
+                maxlength="64"
+                value="${DEFAULT_ROOM_NAME}"
+                required
+              />
+            </li>
 
-        <label for="messageExpiration">Expiração de mensagens</label>
-        <select id="messageExpiration" name="messageExpiration" required>
-          ${expirationOptions.map((option) => `<option value="${option.value}">${option.label}</option>`).join("")}
-        </select>
+            <li class="option-item">
+              <label for="maxParticipants">Limite de participantes</label>
+              <select id="maxParticipants" name="maxParticipants" required>
+                ${participantOptions.map((value) => `<option value="${value}">${value}</option>`).join("")}
+              </select>
+            </li>
 
-        <label for="roomExpirationValue">Expiração da sala</label>
-        <input
-          id="roomExpirationValue"
-          name="roomExpirationValue"
-          type="number"
-          min="1"
-          step="1"
-          value="24"
-          required
-        />
-        <select id="roomExpirationUnit" name="roomExpirationUnit" required>
-          ${roomExpirationUnitOptions.map((option) => `<option value="${option.value}">${option.label}</option>`).join("")}
-        </select>
+            <li class="option-item">
+              <label for="messageExpiration">Expiração de mensagens</label>
+              <select id="messageExpiration" name="messageExpiration" required>
+                ${expirationOptions.map((option) => `<option value="${option.value}">${option.label}</option>`).join("")}
+              </select>
+            </li>
 
-        <label for="allowImages">
-          <input type="checkbox" id="allowImages" name="allowImages" />
-          Permitir envio de imagens
-        </label>
+            <li class="option-item">
+              <label for="roomExpirationValue">Expiração da sala</label>
+              <div class="inline-fields">
+                <input
+                  id="roomExpirationValue"
+                  name="roomExpirationValue"
+                  type="number"
+                  min="1"
+                  step="1"
+                  value="24"
+                  required
+                />
+                <select id="roomExpirationUnit" name="roomExpirationUnit" required>
+                  ${roomExpirationUnitOptions.map((option) => `<option value="${option.value}">${option.label}</option>`).join("")}
+                </select>
+              </div>
+            </li>
 
-        <label for="roomName">Nome da sala</label>
-        <input
-          id="roomName"
-          name="roomName"
-          type="text"
-          maxlength="64"
-          value="${DEFAULT_ROOM_NAME}"
-          required
-        />
+            <li class="option-item option-checkbox">
+              <label for="allowImages">
+                <input type="checkbox" id="allowImages" name="allowImages" />
+                Permitir envio de imagens
+              </label>
+            </li>
+          </ol>
 
-        <button type="submit">Criar sala</button>
-      </form>
+          <button type="submit" class="create-submit">Criar sala</button>
+        </form>
 
-      <p id="form-feedback" role="status"></p>
+        <p id="form-feedback" class="form-feedback" role="status"></p>
+      </section>
     </main>
   `;
 

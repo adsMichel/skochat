@@ -80,6 +80,7 @@ function normalizeImageInput(rawValue) {
 }
 
 export function renderRoomPage(container, roomId) {
+  document.body.classList.add("room-page-active");
   let profile = getStoredProfile();
   let notificationsEnabled = getStoredNotificationsEnabled();
   let connection = null;
