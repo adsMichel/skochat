@@ -22,17 +22,30 @@ describe("POST /rooms", () => {
       method: "POST",
       url: "/rooms",
       payload: {
+        roomName: "RPG Room",
+        creatorUserId: "creator-1",
         maxParticipants: 5,
         messageExpiration: "1h",
-        allowImages: true
+        allowImages: true,
+        roomExpirationValue: 48,
+        roomExpirationUnit: "hours"
       }
     });
 
     expect(response.statusCode).toBe(201);
-    const body = response.json();
+    const body = response.json<{
+      roomId: string;
+      roomName: string;
+      creatorUserId: string;
+      link: string;
+      expiresAt: string;
+    }>();
     expect(body.roomId).toBeTypeOf("string");
     expect(body.roomId).toMatch(uuidV4Pattern);
+    expect(body.roomName).toBe("RPG Room");
+    expect(body.creatorUserId).toBe("creator-1");
     expect(body.link).toBe(`/room/${body.roomId}`);
+    expect(typeof body.expiresAt).toBe("string");
   });
 
   it("rejects invalid participant limit", async () => {
@@ -63,6 +76,40 @@ describe("POST /rooms", () => {
 
     expect(response.statusCode).toBe(400);
     expect(response.json()).toEqual({ error: "messageExpiration is invalid" });
+  });
+
+  it("rejects invalid room expiration unit", async () => {
+    const response = await app.inject({
+      method: "POST",
+      url: "/rooms",
+      payload: {
+        maxParticipants: 5,
+        messageExpiration: "1h",
+        allowImages: true,
+        roomExpirationValue: 1,
+        roomExpirationUnit: "weeks"
+      }
+    });
+
+    expect(response.statusCode).toBe(400);
+    expect(response.json()).toEqual({ error: "roomExpirationUnit is invalid" });
+  });
+
+  it("rejects invalid room expiration value", async () => {
+    const response = await app.inject({
+      method: "POST",
+      url: "/rooms",
+      payload: {
+        maxParticipants: 5,
+        messageExpiration: "1h",
+        allowImages: true,
+        roomExpirationValue: 0,
+        roomExpirationUnit: "hours"
+      }
+    });
+
+    expect(response.statusCode).toBe(400);
+    expect(response.json()).toEqual({ error: "roomExpirationValue is invalid" });
   });
 
   it("rejects invalid payload shape", async () => {

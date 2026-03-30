@@ -2,6 +2,7 @@ node_modules/
 dist/
 .env
 .DS_Store
+backend/data.db
 npm-debug.log*
 yarn-error.log*
 pnpm-debug.log*

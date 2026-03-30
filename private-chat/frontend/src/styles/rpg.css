@@ -1,0 +1,486 @@
+:root {
+  --bg-start: #fff8ec;
+  --bg-end: #f5efe4;
+  --panel: #fffdf7;
+  --panel-border: #d8cdb3;
+  --text: #2d2518;
+  --muted: #6b5b45;
+  --accent: #9e6f2d;
+  --accent-soft: #e6d2af;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: "Cinzel", "Trebuchet MS", "Georgia", serif;
+  background: radial-gradient(circle at 0% 0%, #fffdf5, transparent 40%),
+    linear-gradient(160deg, var(--bg-start), var(--bg-end));
+}
+
+.rpg-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.75rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.compact-layout {
+  min-height: 100vh;
+}
+
+.rpg-topbar {
+  background: linear-gradient(120deg, #f7ead1, #efe1c5);
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 6px 20px rgba(112, 84, 36, 0.12);
+}
+
+.top-stats {
+  margin-top: 0.65rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.stat-card {
+  border: 1px solid #d7c098;
+  background: linear-gradient(120deg, #fff4de, #f5e2be);
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.rpg-title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.rpg-subtitle {
+  margin-top: 0.4rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.rpg-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.chat-column {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.status-panel {
+  padding: 0.7rem 0.9rem;
+}
+
+.chat-focus-layout {
+  align-items: start;
+}
+
+.rpg-panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 0.9rem;
+}
+
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 1.5rem);
+  max-height: calc(100vh - 1.5rem);
+}
+
+.player-panel-compact {
+  padding: 0.65rem 0.75rem;
+}
+
+.players-title {
+  margin: 0 0 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.players-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.player-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #faf4e8;
+  border: 1px solid #e4d5b8;
+  border-radius: 999px;
+  padding: 0.28rem 0.55rem;
+}
+
+.player-name {
+  font-size: 0.86rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.status-online {
+  background: #3cbf4b;
+}
+
+.status-offline {
+  background: #d44c4c;
+}
+
+.chat-feed {
+  flex: 1;
+  min-height: 180px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-bottom: 0.4rem;
+}
+
+.chat-item {
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+  animation: fade-slide 0.2s ease-out;
+}
+
+.event-badge {
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #cfc0e8;
+  background: linear-gradient(120deg, #f7f0ff, #ece1f8);
+  animation: badge-pop 0.35s ease-out;
+}
+
+.event-title {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #5e457f;
+  font-weight: 700;
+}
+
+.event-detail {
+  margin: 0.23rem 0 0;
+  font-size: 0.9rem;
+}
+
+.event-xp {
+  border-color: #9db6dd;
+  background: linear-gradient(120deg, #ecf4ff, #dceaff);
+}
+
+.event-level {
+  border-color: #ddb785;
+  background: linear-gradient(120deg, #fff1dc, #f7dfbb);
+}
+
+.event-achievement {
+  border-color: #c7a4dc;
+  background: linear-gradient(120deg, #f8ecff, #ecd6fa);
+}
+
+.event-connection {
+  border-color: #e1a2a2;
+  background: linear-gradient(120deg, #ffe9e9, #ffd1d1);
+}
+
+.chat-user {
+  background: #f7f0e2;
+  border: 1px solid #dbc8a5;
+}
+
+.chat-system {
+  background: #efe8f8;
+  border: 1px solid #cfc0e8;
+}
+
+.chat-label {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.chat-content {
+  margin: 0.25rem 0 0;
+}
+
+.chat-text {
+  margin: 0;
+}
+
+.chat-image {
+  display: block;
+  max-width: min(100%, 320px);
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #d8c4a0;
+}
+
+.chat-image-link {
+  display: inline-block;
+  margin-top: 0.35rem;
+  color: #6e4f20;
+  font-size: 0.85rem;
+}
+
+.rpg-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.rpg-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 0.65rem;
+  margin-bottom: 0.5rem;
+  background: #fffaf0;
+  color: var(--text);
+}
+
+.rpg-button {
+  border: 1px solid #c9ab77;
+  background: linear-gradient(120deg, #f7e6c8, #f0d6a5);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 0.55rem 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.profile-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.rpg-select,
+.rpg-name {
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 0.45rem;
+  background: #fffaf0;
+}
+
+.rpg-button {
+  min-height: 40px;
+}
+
+.rpg-actions .rpg-button {
+  flex: 0 0 auto;
+}
+
+.chat-composer {
+  margin-top: 0.5rem;
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(255, 253, 247, 0.6), rgba(255, 253, 247, 1) 24%);
+  padding-top: 0.65rem;
+}
+
+.icon-only {
+  width: 40px;
+  min-width: 40px;
+  padding: 0;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.chat-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.chat-toolbar h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.icon-button {
+  border: 1px solid #ccb483;
+  background: linear-gradient(120deg, #f9ebd1, #f1dcba);
+  border-radius: 10px;
+  min-width: 40px;
+  min-height: 40px;
+  cursor: pointer;
+}
+
+.notif-button {
+  position: relative;
+}
+
+.notif-badge {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #d44c4c;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notif-badge.is-hidden {
+  display: none;
+}
+
+.notifications-panel {
+  margin-bottom: 0.75rem;
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px dashed #d6c4a1;
+  border-radius: 10px;
+  background: #fff8eb;
+  padding: 0.55rem;
+}
+
+.notifications-panel.is-hidden {
+  display: none;
+}
+
+.notifications-title {
+  margin: 0 0 0.45rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.notifications-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.notification-item {
+  border: 1px solid #e2d2b5;
+  background: #fffdf7;
+  border-radius: 8px;
+  padding: 0.38rem 0.48rem;
+  font-size: 0.85rem;
+}
+
+.settings-panel {
+  margin-bottom: 0.75rem;
+  padding: 0.55rem;
+  border: 1px dashed #d6c4a1;
+  border-radius: 10px;
+  background: #fff8eb;
+}
+
+.settings-panel.is-hidden {
+  display: none;
+}
+
+.options-row {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 0.55rem;
+}
+
+.toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 720px) {
+  .rpg-title {
+    font-size: 1.25rem;
+  }
+
+  .top-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .profile-row {
+    grid-template-columns: 1fr;
+  }
+
+  .chat-panel {
+    min-height: calc(100vh - 1rem);
+    max-height: calc(100vh - 1rem);
+  }
+}
+
+@keyframes fade-slide {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes badge-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (min-width: 900px) {
+  .rpg-content {
+    grid-template-columns: 340px 1fr;
+  }
+
+  #room-name-row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .profile-row {
+    grid-template-columns: 1fr 1fr 1fr auto;
+  }
+
+  .chat-panel {
+    min-height: calc(100vh - 1.5rem);
+    max-height: calc(100vh - 1.5rem);
+  }
+}

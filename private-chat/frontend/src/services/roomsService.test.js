@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { createRoom } from "./roomsService.js";
+import { createRoom, getRoom, updateRoomName } from "./roomsService.js";
 
 afterEach(() => {
   vi.restoreAllMocks();
@@ -22,7 +22,9 @@ describe("createRoom", () => {
     const payload = {
       maxParticipants: 5,
       messageExpiration: "1h",
-      allowImages: true
+      allowImages: true,
+      roomExpirationValue: 24,
+      roomExpirationUnit: "hours"
     };
     const result = await createRoom(payload);
 
@@ -46,8 +48,58 @@ describe("createRoom", () => {
       createRoom({
         maxParticipants: 4,
         messageExpiration: "1h",
-        allowImages: true
+        allowImages: true,
+        roomExpirationValue: 24,
+        roomExpirationUnit: "hours"
       })
     ).rejects.toThrow("maxParticipants is invalid");
+  });
+});
+
+describe("getRoom", () => {
+  it("loads room details", async () => {
+    const fakeResponse = {
+      roomId: "11111111-1111-4111-8111-111111111111",
+      roomName: "Private Room RPG",
+      creatorUserId: "owner-1"
+    };
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => fakeResponse
+    });
+
+    vi.stubGlobal("fetch", fetchMock);
+    const result = await getRoom(fakeResponse.roomId);
+
+    expect(fetchMock).toHaveBeenCalledWith(`/api/rooms/${fakeResponse.roomId}`);
+    expect(result).toEqual(fakeResponse);
+  });
+});
+
+describe("updateRoomName", () => {
+  it("sends patch payload and returns updated name", async () => {
+    const roomId = "11111111-1111-4111-8111-111111111111";
+    const payload = {
+      requesterUserId: "owner-1",
+      roomName: "My New Room"
+    };
+    const fakeResponse = {
+      roomId,
+      roomName: "My New Room"
+    };
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => fakeResponse
+    });
+
+    vi.stubGlobal("fetch", fetchMock);
+    const result = await updateRoomName(roomId, payload);
+
+    expect(fetchMock).toHaveBeenCalledWith(`/api/rooms/${roomId}/name`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    expect(result).toEqual(fakeResponse);
   });
 });

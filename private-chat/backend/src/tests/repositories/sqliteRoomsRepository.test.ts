@@ -29,9 +29,14 @@ describe("SqliteRoomsRepository", () => {
     const firstRepository = new SqliteRoomsRepository(databaseUrl);
 
     const room = await firstRepository.create({
+      roomName: "Private Room RPG",
+      creatorUserId: "owner-1",
       maxParticipants: 10,
       messageExpiration: "24h",
-      allowImages: false
+      allowImages: false,
+      roomExpirationValue: 2,
+      roomExpirationUnit: "days",
+      expiresAt: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString()
     });
     expect(room.id).toMatch(uuidV4Pattern);
 
@@ -40,8 +45,12 @@ describe("SqliteRoomsRepository", () => {
 
     expect(foundRoom).not.toBeNull();
     expect(foundRoom?.id).toBe(room.id);
+    expect(foundRoom?.roomName).toBe("Private Room RPG");
+    expect(foundRoom?.creatorUserId).toBe("owner-1");
     expect(foundRoom?.maxParticipants).toBe(10);
     expect(foundRoom?.messageExpiration).toBe("24h");
     expect(foundRoom?.allowImages).toBe(false);
+    expect(foundRoom?.roomExpirationValue).toBe(2);
+    expect(foundRoom?.roomExpirationUnit).toBe("days");
   });
 });
