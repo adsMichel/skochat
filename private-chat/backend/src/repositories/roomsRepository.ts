@@ -15,5 +15,7 @@ export type CreateRoomData = {
 };
 
 export interface RoomsRepository {
-  create(data: CreateRoomData): Room;
+  create(data: CreateRoomData): Promise<Room>;
+  findById(id: string): Promise<Room | null>;
+  close?(): Promise<void>;
 }

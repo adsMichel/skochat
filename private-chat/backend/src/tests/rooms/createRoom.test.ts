@@ -3,6 +3,8 @@ import type { FastifyInstance } from "fastify";
 import { buildApp } from "../../app.js";
 
 describe("POST /rooms", () => {
+  const uuidV4Pattern =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   let app: FastifyInstance;
 
   beforeEach(() => {
@@ -29,7 +31,8 @@ describe("POST /rooms", () => {
     expect(response.statusCode).toBe(201);
     const body = response.json();
     expect(body.roomId).toBeTypeOf("string");
-    expect(body.link).toMatch(/^\/room\//);
+    expect(body.roomId).toMatch(uuidV4Pattern);
+    expect(body.link).toBe(`/room/${body.roomId}`);
   });
 
   it("rejects invalid participant limit", async () => {

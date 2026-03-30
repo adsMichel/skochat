@@ -4,7 +4,7 @@ import type { CreateRoomData, Room, RoomsRepository } from "./roomsRepository.js
 export class InMemoryRoomsRepository implements RoomsRepository {
   private readonly rooms = new Map<string, Room>();
 
-  create(data: CreateRoomData): Room {
+  async create(data: CreateRoomData): Promise<Room> {
     const room: Room = {
       id: randomUUID(),
       maxParticipants: data.maxParticipants,
@@ -15,5 +15,9 @@ export class InMemoryRoomsRepository implements RoomsRepository {
 
     this.rooms.set(room.id, room);
     return room;
+  }
+
+  async findById(id: string): Promise<Room | null> {
+    return this.rooms.get(id) ?? null;
   }
 }

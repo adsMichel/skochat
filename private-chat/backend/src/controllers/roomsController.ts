@@ -26,7 +26,7 @@ export function buildRoomsController(roomsService: RoomsService) {
       }
 
       try {
-        const room = roomsService.createRoom(request.body);
+        const room = await roomsService.createRoom(request.body);
         return reply.code(201).send({
           roomId: room.id,
           link: `/room/${room.id}`

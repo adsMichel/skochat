@@ -19,7 +19,7 @@ export class InvalidRoomSettingsError extends Error {}
 export class RoomsService {
   constructor(private readonly roomsRepository: RoomsRepository) {}
 
-  createRoom(input: CreateRoomInput): Room {
+  async createRoom(input: CreateRoomInput): Promise<Room> {
     this.validateInput(input);
     const createRoomData: CreateRoomData = {
       maxParticipants: input.maxParticipants,
@@ -27,7 +27,7 @@ export class RoomsService {
       allowImages: input.allowImages
     };
 
-    return this.roomsRepository.create(createRoomData);
+    return await this.roomsRepository.create(createRoomData);
   }
 
   private validateInput(input: CreateRoomInput): void {

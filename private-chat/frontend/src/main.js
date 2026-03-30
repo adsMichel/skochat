@@ -1,10 +1,7 @@
+import { renderCreateRoomPage } from "./pages/createRoomPage.js";
+
 const app = document.querySelector("#app");
 
-if (app) {
-  app.innerHTML = `
-    <main>
-      <h1>Private Chat</h1>
-      <p>Bootstrap inicial pronto.</p>
-    </main>
-  `;
+if (app instanceof HTMLElement) {
+  renderCreateRoomPage(app);
 }
